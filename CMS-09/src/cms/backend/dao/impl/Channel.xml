@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cms.model.Channel">
+	
+	<!-- 通过Id调用sql语句，parameterType表示参数类型,"User"对应SqlMapConfig.xml里实体类别名 -->
+	<insert id="save" parameterType="Channel">
+		insert into t_channel(id,name,description) values (#{id},#{name},#{description})
+	</insert>
+	
+	<delete id="delete" parameterType="String">
+		delete from t_channel where id=#{id}
+	</delete>
+	
+	<delete id="deleteArticle" parameterType="String">
+		delete from t_article where channel_id=#{id}
+	</delete>
+	
+	<update id="update" parameterType="Channel">
+		update t_channel set name=#{name},description=#{description} where id=#{id} 
+	</update>
+	
+	<select id="get" parameterType="int" resultType="Channel">
+		select * from t_channel where id=#{id}
+	</select>
+	
+	<select id="query" resultType="Channel">
+		select * from t_channel
+	</select>
+</mapper>

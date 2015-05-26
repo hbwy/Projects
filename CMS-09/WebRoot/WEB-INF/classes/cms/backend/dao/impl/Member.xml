@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cms.model.Member">
+	<!-- 添加会员 -->
+	<insert id="add" parameterType="Member">
+		insert into t_member(name,nickname,email,password) values(#{name},#{nickname},#{email},#{password})
+	</insert>
+	
+	<!-- 删除会员 -->
+	<delete id="del" parameterType="int">
+		delete from t_member where id=#{id}
+	</delete>
+	
+	<!-- 更新会员 -->
+	<update id="update" parameterType="Member">
+		update t_member set name=#{name},nickname=#{nickname},email=#{email} where id=#{id}
+	</update>
+	
+	<!-- 更新密码 -->
+	<update id="updatePassword" parameterType="map">
+		update t_member set password=#{newPass} where id=#{memberId}
+	</update>
+	
+	<!-- 根据ID查会员 -->
+	<select id="findMemberById" parameterType="int" resultType="Member">
+		select * from t_member where id=#{id}
+	</select>
+	
+	<!-- 根据昵称查会员 -->
+	<select id="findMemberByNickname" parameterType="String" resultType="Member">
+		select * from t_member where nickname=#{nickname}
+	</select>
+	
+	<!-- 多查 -->
+	<select id="findAll" resultType="Member">
+		select * from t_member
+	</select>
+</mapper>

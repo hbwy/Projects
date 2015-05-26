@@ -1,0 +1,458 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dealmoon.inter.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.dealmoon.model.User" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="CHAR" />
+    <result column="status" property="status" jdbcType="CHAR" />
+    <result column="ip" property="ip" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="INTEGER" />
+    <result column="img_url" property="imgUrl" jdbcType="VARCHAR" />
+    <result column="token" property="token" jdbcType="VARCHAR" />
+    <result column="token_exptime" property="tokenExptime" jdbcType="INTEGER" />
+    <result column="sex" property="sex" jdbcType="CHAR" />
+    <result column="birthday" property="birthday" jdbcType="CHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="introduce" property="introduce" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="repeatname" property="repeatname" jdbcType="VARCHAR" />
+    <result column="language" property="language" jdbcType="VARCHAR" />
+    <result column="newsletter" property="newsletter" jdbcType="CHAR" />
+    <result column="terms_agree" property="termsAgree" jdbcType="CHAR" />
+    <result column="disallowed_actions" property="disallowedActions" jdbcType="VARCHAR" />
+    <result column="disallowed_expires" property="disallowedExpires" jdbcType="INTEGER" />
+    <result column="disallowed_admin_name" property="disallowedAdminName" jdbcType="VARCHAR" />
+    <result column="disallowed_begin_expires" property="disallowedBeginExpires" jdbcType="INTEGER" />
+    <result column="disallowed_admin_address" property="disallowedAdminAddress" jdbcType="VARCHAR" />
+    <result column="disallowed_admin_remark" property="disallowedAdminRemark" jdbcType="VARCHAR" />
+    <result column="three_register" property="threeRegister" jdbcType="BIT" />
+    <result column="last_retrieve_time" property="lastRetrieveTime" jdbcType="TIMESTAMP" />
+    <result column="post_num" property="postNum" jdbcType="INTEGER" />
+    <result column="follow_num" property="followNum" jdbcType="INTEGER" />
+    <result column="fans_num" property="fansNum" jdbcType="INTEGER" />
+    <result column="favorite_num" property="favoriteNum" jdbcType="INTEGER" />
+    <result column="like_num" property="likeNum" jdbcType="INTEGER" />
+    <result column="score" property="score" jdbcType="INTEGER" />
+    <result column="gold" property="gold" jdbcType="INTEGER" />
+    <result column="vip" property="vip" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, email, password, status, ip, create_time, img_url, token, token_exptime, 
+    sex, birthday, mobile, introduce, address, url, repeatname, language, newsletter, 
+    terms_agree, disallowed_actions, disallowed_expires, disallowed_admin_name, disallowed_begin_expires, 
+    disallowed_admin_address, disallowed_admin_remark, three_register, last_retrieve_time, 
+    post_num, follow_num, fans_num, favorite_num, like_num, score, gold, vip
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dealmoon.model.User" >
+    insert into user (id, name, email, 
+      password, status, ip, create_time, 
+      img_url, token, token_exptime, 
+      sex, birthday, mobile, introduce, 
+      address, url, repeatname, 
+      language, newsletter, terms_agree, 
+      disallowed_actions, disallowed_expires, disallowed_admin_name, 
+      disallowed_begin_expires, disallowed_admin_address, 
+      disallowed_admin_remark, three_register, last_retrieve_time, 
+      post_num, follow_num, fans_num, 
+      favorite_num, like_num, score, 
+      gold, vip)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{password,jdbcType=CHAR}, #{status,jdbcType=CHAR}, #{ip,jdbcType=VARCHAR}, #{createTime,jdbcType=INTEGER}, 
+      #{imgUrl,jdbcType=VARCHAR}, #{token,jdbcType=VARCHAR}, #{tokenExptime,jdbcType=INTEGER}, 
+      #{sex,jdbcType=CHAR}, #{birthday,jdbcType=CHAR}, #{mobile,jdbcType=VARCHAR}, #{introduce,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{repeatname,jdbcType=VARCHAR}, 
+      #{language,jdbcType=VARCHAR}, #{newsletter,jdbcType=CHAR}, #{termsAgree,jdbcType=CHAR}, 
+      #{disallowedActions,jdbcType=VARCHAR}, #{disallowedExpires,jdbcType=INTEGER}, #{disallowedAdminName,jdbcType=VARCHAR}, 
+      #{disallowedBeginExpires,jdbcType=INTEGER}, #{disallowedAdminAddress,jdbcType=VARCHAR}, 
+      #{disallowedAdminRemark,jdbcType=VARCHAR}, #{threeRegister,jdbcType=BIT}, #{lastRetrieveTime,jdbcType=TIMESTAMP}, 
+      #{postNum,jdbcType=INTEGER}, #{followNum,jdbcType=INTEGER}, #{fansNum,jdbcType=INTEGER}, 
+      #{favoriteNum,jdbcType=INTEGER}, #{likeNum,jdbcType=INTEGER}, #{score,jdbcType=INTEGER}, 
+      #{gold,jdbcType=INTEGER}, #{vip,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dealmoon.model.User" >
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="ip != null" >
+        ip,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="imgUrl != null" >
+        img_url,
+      </if>
+      <if test="token != null" >
+        token,
+      </if>
+      <if test="tokenExptime != null" >
+        token_exptime,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="birthday != null" >
+        birthday,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+      <if test="introduce != null" >
+        introduce,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="repeatname != null" >
+        repeatname,
+      </if>
+      <if test="language != null" >
+        language,
+      </if>
+      <if test="newsletter != null" >
+        newsletter,
+      </if>
+      <if test="termsAgree != null" >
+        terms_agree,
+      </if>
+      <if test="disallowedActions != null" >
+        disallowed_actions,
+      </if>
+      <if test="disallowedExpires != null" >
+        disallowed_expires,
+      </if>
+      <if test="disallowedAdminName != null" >
+        disallowed_admin_name,
+      </if>
+      <if test="disallowedBeginExpires != null" >
+        disallowed_begin_expires,
+      </if>
+      <if test="disallowedAdminAddress != null" >
+        disallowed_admin_address,
+      </if>
+      <if test="disallowedAdminRemark != null" >
+        disallowed_admin_remark,
+      </if>
+      <if test="threeRegister != null" >
+        three_register,
+      </if>
+      <if test="lastRetrieveTime != null" >
+        last_retrieve_time,
+      </if>
+      <if test="postNum != null" >
+        post_num,
+      </if>
+      <if test="followNum != null" >
+        follow_num,
+      </if>
+      <if test="fansNum != null" >
+        fans_num,
+      </if>
+      <if test="favoriteNum != null" >
+        favorite_num,
+      </if>
+      <if test="likeNum != null" >
+        like_num,
+      </if>
+      <if test="score != null" >
+        score,
+      </if>
+      <if test="gold != null" >
+        gold,
+      </if>
+      <if test="vip != null" >
+        vip,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=CHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="ip != null" >
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=INTEGER},
+      </if>
+      <if test="imgUrl != null" >
+        #{imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="token != null" >
+        #{token,jdbcType=VARCHAR},
+      </if>
+      <if test="tokenExptime != null" >
+        #{tokenExptime,jdbcType=INTEGER},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=CHAR},
+      </if>
+      <if test="birthday != null" >
+        #{birthday,jdbcType=CHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="introduce != null" >
+        #{introduce,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="repeatname != null" >
+        #{repeatname,jdbcType=VARCHAR},
+      </if>
+      <if test="language != null" >
+        #{language,jdbcType=VARCHAR},
+      </if>
+      <if test="newsletter != null" >
+        #{newsletter,jdbcType=CHAR},
+      </if>
+      <if test="termsAgree != null" >
+        #{termsAgree,jdbcType=CHAR},
+      </if>
+      <if test="disallowedActions != null" >
+        #{disallowedActions,jdbcType=VARCHAR},
+      </if>
+      <if test="disallowedExpires != null" >
+        #{disallowedExpires,jdbcType=INTEGER},
+      </if>
+      <if test="disallowedAdminName != null" >
+        #{disallowedAdminName,jdbcType=VARCHAR},
+      </if>
+      <if test="disallowedBeginExpires != null" >
+        #{disallowedBeginExpires,jdbcType=INTEGER},
+      </if>
+      <if test="disallowedAdminAddress != null" >
+        #{disallowedAdminAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="disallowedAdminRemark != null" >
+        #{disallowedAdminRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="threeRegister != null" >
+        #{threeRegister,jdbcType=BIT},
+      </if>
+      <if test="lastRetrieveTime != null" >
+        #{lastRetrieveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="postNum != null" >
+        #{postNum,jdbcType=INTEGER},
+      </if>
+      <if test="followNum != null" >
+        #{followNum,jdbcType=INTEGER},
+      </if>
+      <if test="fansNum != null" >
+        #{fansNum,jdbcType=INTEGER},
+      </if>
+      <if test="favoriteNum != null" >
+        #{favoriteNum,jdbcType=INTEGER},
+      </if>
+      <if test="likeNum != null" >
+        #{likeNum,jdbcType=INTEGER},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=INTEGER},
+      </if>
+      <if test="gold != null" >
+        #{gold,jdbcType=INTEGER},
+      </if>
+      <if test="vip != null" >
+        #{vip,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dealmoon.model.User" >
+    update user
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=CHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=CHAR},
+      </if>
+      <if test="ip != null" >
+        ip = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=INTEGER},
+      </if>
+      <if test="imgUrl != null" >
+        img_url = #{imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="token != null" >
+        token = #{token,jdbcType=VARCHAR},
+      </if>
+      <if test="tokenExptime != null" >
+        token_exptime = #{tokenExptime,jdbcType=INTEGER},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=CHAR},
+      </if>
+      <if test="birthday != null" >
+        birthday = #{birthday,jdbcType=CHAR},
+      </if>
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="introduce != null" >
+        introduce = #{introduce,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="repeatname != null" >
+        repeatname = #{repeatname,jdbcType=VARCHAR},
+      </if>
+      <if test="language != null" >
+        language = #{language,jdbcType=VARCHAR},
+      </if>
+      <if test="newsletter != null" >
+        newsletter = #{newsletter,jdbcType=CHAR},
+      </if>
+      <if test="termsAgree != null" >
+        terms_agree = #{termsAgree,jdbcType=CHAR},
+      </if>
+      <if test="disallowedActions != null" >
+        disallowed_actions = #{disallowedActions,jdbcType=VARCHAR},
+      </if>
+      <if test="disallowedExpires != null" >
+        disallowed_expires = #{disallowedExpires,jdbcType=INTEGER},
+      </if>
+      <if test="disallowedAdminName != null" >
+        disallowed_admin_name = #{disallowedAdminName,jdbcType=VARCHAR},
+      </if>
+      <if test="disallowedBeginExpires != null" >
+        disallowed_begin_expires = #{disallowedBeginExpires,jdbcType=INTEGER},
+      </if>
+      <if test="disallowedAdminAddress != null" >
+        disallowed_admin_address = #{disallowedAdminAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="disallowedAdminRemark != null" >
+        disallowed_admin_remark = #{disallowedAdminRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="threeRegister != null" >
+        three_register = #{threeRegister,jdbcType=BIT},
+      </if>
+      <if test="lastRetrieveTime != null" >
+        last_retrieve_time = #{lastRetrieveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="postNum != null" >
+        post_num = #{postNum,jdbcType=INTEGER},
+      </if>
+      <if test="followNum != null" >
+        follow_num = #{followNum,jdbcType=INTEGER},
+      </if>
+      <if test="fansNum != null" >
+        fans_num = #{fansNum,jdbcType=INTEGER},
+      </if>
+      <if test="favoriteNum != null" >
+        favorite_num = #{favoriteNum,jdbcType=INTEGER},
+      </if>
+      <if test="likeNum != null" >
+        like_num = #{likeNum,jdbcType=INTEGER},
+      </if>
+      <if test="score != null" >
+        score = #{score,jdbcType=INTEGER},
+      </if>
+      <if test="gold != null" >
+        gold = #{gold,jdbcType=INTEGER},
+      </if>
+      <if test="vip != null" >
+        vip = #{vip,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dealmoon.model.User" >
+    update user
+    set name = #{name,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      password = #{password,jdbcType=CHAR},
+      status = #{status,jdbcType=CHAR},
+      ip = #{ip,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=INTEGER},
+      img_url = #{imgUrl,jdbcType=VARCHAR},
+      token = #{token,jdbcType=VARCHAR},
+      token_exptime = #{tokenExptime,jdbcType=INTEGER},
+      sex = #{sex,jdbcType=CHAR},
+      birthday = #{birthday,jdbcType=CHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      introduce = #{introduce,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      repeatname = #{repeatname,jdbcType=VARCHAR},
+      language = #{language,jdbcType=VARCHAR},
+      newsletter = #{newsletter,jdbcType=CHAR},
+      terms_agree = #{termsAgree,jdbcType=CHAR},
+      disallowed_actions = #{disallowedActions,jdbcType=VARCHAR},
+      disallowed_expires = #{disallowedExpires,jdbcType=INTEGER},
+      disallowed_admin_name = #{disallowedAdminName,jdbcType=VARCHAR},
+      disallowed_begin_expires = #{disallowedBeginExpires,jdbcType=INTEGER},
+      disallowed_admin_address = #{disallowedAdminAddress,jdbcType=VARCHAR},
+      disallowed_admin_remark = #{disallowedAdminRemark,jdbcType=VARCHAR},
+      three_register = #{threeRegister,jdbcType=BIT},
+      last_retrieve_time = #{lastRetrieveTime,jdbcType=TIMESTAMP},
+      post_num = #{postNum,jdbcType=INTEGER},
+      follow_num = #{followNum,jdbcType=INTEGER},
+      fans_num = #{fansNum,jdbcType=INTEGER},
+      favorite_num = #{favoriteNum,jdbcType=INTEGER},
+      like_num = #{likeNum,jdbcType=INTEGER},
+      score = #{score,jdbcType=INTEGER},
+      gold = #{gold,jdbcType=INTEGER},
+      vip = #{vip,jdbcType=BIT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

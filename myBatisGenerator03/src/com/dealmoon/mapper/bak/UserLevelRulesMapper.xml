@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dealmoon.inter.UserLevelRulesMapper" >
+  <resultMap id="BaseResultMap" type="com.dealmoon.model.UserLevelRules" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="level" property="level" jdbcType="INTEGER" />
+    <result column="min_score" property="minScore" jdbcType="INTEGER" />
+    <result column="max_score" property="maxScore" jdbcType="INTEGER" />
+    <result column="comment_limit" property="commentLimit" jdbcType="INTEGER" />
+    <result column="post_limit" property="postLimit" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="vip" property="vip" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, level, min_score, max_score, comment_limit, post_limit, name, vip
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_level_rules
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user_level_rules
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dealmoon.model.UserLevelRules" >
+    insert into user_level_rules (id, level, min_score, 
+      max_score, comment_limit, post_limit, 
+      name, vip)
+    values (#{id,jdbcType=INTEGER}, #{level,jdbcType=INTEGER}, #{minScore,jdbcType=INTEGER}, 
+      #{maxScore,jdbcType=INTEGER}, #{commentLimit,jdbcType=INTEGER}, #{postLimit,jdbcType=INTEGER}, 
+      #{name,jdbcType=VARCHAR}, #{vip,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dealmoon.model.UserLevelRules" >
+    insert into user_level_rules
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="level != null" >
+        level,
+      </if>
+      <if test="minScore != null" >
+        min_score,
+      </if>
+      <if test="maxScore != null" >
+        max_score,
+      </if>
+      <if test="commentLimit != null" >
+        comment_limit,
+      </if>
+      <if test="postLimit != null" >
+        post_limit,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="vip != null" >
+        vip,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="minScore != null" >
+        #{minScore,jdbcType=INTEGER},
+      </if>
+      <if test="maxScore != null" >
+        #{maxScore,jdbcType=INTEGER},
+      </if>
+      <if test="commentLimit != null" >
+        #{commentLimit,jdbcType=INTEGER},
+      </if>
+      <if test="postLimit != null" >
+        #{postLimit,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="vip != null" >
+        #{vip,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dealmoon.model.UserLevelRules" >
+    update user_level_rules
+    <set >
+      <if test="level != null" >
+        level = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="minScore != null" >
+        min_score = #{minScore,jdbcType=INTEGER},
+      </if>
+      <if test="maxScore != null" >
+        max_score = #{maxScore,jdbcType=INTEGER},
+      </if>
+      <if test="commentLimit != null" >
+        comment_limit = #{commentLimit,jdbcType=INTEGER},
+      </if>
+      <if test="postLimit != null" >
+        post_limit = #{postLimit,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="vip != null" >
+        vip = #{vip,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dealmoon.model.UserLevelRules" >
+    update user_level_rules
+    set level = #{level,jdbcType=INTEGER},
+      min_score = #{minScore,jdbcType=INTEGER},
+      max_score = #{maxScore,jdbcType=INTEGER},
+      comment_limit = #{commentLimit,jdbcType=INTEGER},
+      post_limit = #{postLimit,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      vip = #{vip,jdbcType=BIT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<properties resource="config/jdbc.properties" />
+	<typeAliases>
+		<typeAlias alias="Statistics" type="com.dealmoon.model.Statistics" />
+		<typeAlias alias="PostCountInBrand" type="com.dealmoon.model.PostCountInBrand" />
+		<typeAlias alias="UserPostCount" type="com.dealmoon.model.UserPostCount" />
+		<typeAlias alias="UserFollowCount" type="com.dealmoon.model.UserFollowCount" />
+		<typeAlias alias="UserRecommendPostCount" type="com.dealmoon.model.UserRecommendPostCount" />
+		<typeAlias alias="UserDeletePostCount" type="com.dealmoon.model.UserDeletePostCount" />
+		<typeAlias alias="UserDeleteCommentCount" type="com.dealmoon.model.UserDeleteCommentCount" />
+	</typeAliases>
+
+	<environments default="UGC">
+		<environment id="UGC">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="driver" value="${ugc.jdbc.driverClassName}" />
+				<property name="url" value="${ugc.jdbc.url}" />
+				<property name="username" value="${ugc.jdbc.username}" />
+				<property name="password" value="${ugc.jdbc.password}" />
+			</dataSource>
+		</environment>
+
+		<environment id="DM_UCENTER">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="driver" value="${dm_ucenter.jdbc.driverClassName}" />
+				<property name="url" value="${dm_ucenter.jdbc.url}" />
+				<property name="username" value="${dm_ucenter.jdbc.username}" />
+				<property name="password" value="${dm_ucenter.jdbc.password}" />
+			</dataSource>
+		</environment>
+	</environments>
+
+	<mappers>
+		<mapper resource="com/dealmoon/mapper/StatisticsMapper.xml" />
+		<mapper resource="com/dealmoon/mapper/PostBrandUserRelationMapper.xml" />
+		<mapper resource="com/dealmoon/mapper/PostMapper.xml" />
+		<mapper resource="com/dealmoon/mapper/FollowListMapper.xml" />
+		<mapper resource="com/dealmoon/mapper/PostCommentMapper.xml" />
+	</mappers>
+</configuration>

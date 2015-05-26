@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cms.model.Message">
+
+	<!-- 通过Id调用sql语句，parameterType表示参数类型,"User"对应SqlMapConfig.xml里实体类别名 -->
+	<insert id="save" parameterType="Message">
+		insert into t_message
+		(article_id,content,publisher,publish_time)
+		values (#{articleId},#{content},#{publisher},now())
+	</insert>
+
+	<resultMap type="Message" id="findMessage">
+		<result column="article_id" property="articleId"/>
+		<result column="publish_time" property="publishTime"/>
+	</resultMap>
+	
+	<select id="query" parameterType="map" resultMap="findMessage">
+		select * from t_message where article_id=#{articleId}
+		limit #{pm.startIndex},#{pm.pageSize}
+	</select>
+
+	<select id="getRowCount" parameterType="int" resultType="int">
+		select count(*) from t_message where article_id=#{articleId}
+	</select>
+
+	<delete id="delete" parameterType="int">
+		delete from t_message where id=#{id}
+	</delete>
+
+
+</mapper>

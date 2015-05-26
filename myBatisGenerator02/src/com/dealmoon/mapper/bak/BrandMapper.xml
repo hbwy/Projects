@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dealmoon.inter.BrandMapper" >
+  <resultMap id="BaseResultMap" type="com.dealmoon.model.Brand" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="title_en" property="titleEn" jdbcType="VARCHAR" />
+    <result column="title_cn" property="titleCn" jdbcType="VARCHAR" />
+    <result column="logo" property="logo" jdbcType="VARCHAR" />
+    <result column="view_num" property="viewNum" jdbcType="INTEGER" />
+    <result column="favorite_num" property="favoriteNum" jdbcType="INTEGER" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="is_hot" property="isHot" jdbcType="BIT" />
+    <result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+    <result column="description_cn" property="descriptionCn" jdbcType="VARCHAR" />
+    <result column="description_en" property="descriptionEn" jdbcType="VARCHAR" />
+    <result column="home_page" property="homePage" jdbcType="VARCHAR" />
+    <result column="post_num" property="postNum" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, title_en, title_cn, logo, view_num, favorite_num, state, is_hot, add_time, description_cn, 
+    description_en, home_page, post_num
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from brand
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from brand
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dealmoon.model.Brand" >
+    insert into brand (id, title_en, title_cn, 
+      logo, view_num, favorite_num, 
+      state, is_hot, add_time, 
+      description_cn, description_en, home_page, 
+      post_num)
+    values (#{id,jdbcType=INTEGER}, #{titleEn,jdbcType=VARCHAR}, #{titleCn,jdbcType=VARCHAR}, 
+      #{logo,jdbcType=VARCHAR}, #{viewNum,jdbcType=INTEGER}, #{favoriteNum,jdbcType=INTEGER}, 
+      #{state,jdbcType=INTEGER}, #{isHot,jdbcType=BIT}, #{addTime,jdbcType=TIMESTAMP}, 
+      #{descriptionCn,jdbcType=VARCHAR}, #{descriptionEn,jdbcType=VARCHAR}, #{homePage,jdbcType=VARCHAR}, 
+      #{postNum,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dealmoon.model.Brand" >
+    insert into brand
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="titleEn != null" >
+        title_en,
+      </if>
+      <if test="titleCn != null" >
+        title_cn,
+      </if>
+      <if test="logo != null" >
+        logo,
+      </if>
+      <if test="viewNum != null" >
+        view_num,
+      </if>
+      <if test="favoriteNum != null" >
+        favorite_num,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="isHot != null" >
+        is_hot,
+      </if>
+      <if test="addTime != null" >
+        add_time,
+      </if>
+      <if test="descriptionCn != null" >
+        description_cn,
+      </if>
+      <if test="descriptionEn != null" >
+        description_en,
+      </if>
+      <if test="homePage != null" >
+        home_page,
+      </if>
+      <if test="postNum != null" >
+        post_num,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="titleEn != null" >
+        #{titleEn,jdbcType=VARCHAR},
+      </if>
+      <if test="titleCn != null" >
+        #{titleCn,jdbcType=VARCHAR},
+      </if>
+      <if test="logo != null" >
+        #{logo,jdbcType=VARCHAR},
+      </if>
+      <if test="viewNum != null" >
+        #{viewNum,jdbcType=INTEGER},
+      </if>
+      <if test="favoriteNum != null" >
+        #{favoriteNum,jdbcType=INTEGER},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="isHot != null" >
+        #{isHot,jdbcType=BIT},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="descriptionCn != null" >
+        #{descriptionCn,jdbcType=VARCHAR},
+      </if>
+      <if test="descriptionEn != null" >
+        #{descriptionEn,jdbcType=VARCHAR},
+      </if>
+      <if test="homePage != null" >
+        #{homePage,jdbcType=VARCHAR},
+      </if>
+      <if test="postNum != null" >
+        #{postNum,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dealmoon.model.Brand" >
+    update brand
+    <set >
+      <if test="titleEn != null" >
+        title_en = #{titleEn,jdbcType=VARCHAR},
+      </if>
+      <if test="titleCn != null" >
+        title_cn = #{titleCn,jdbcType=VARCHAR},
+      </if>
+      <if test="logo != null" >
+        logo = #{logo,jdbcType=VARCHAR},
+      </if>
+      <if test="viewNum != null" >
+        view_num = #{viewNum,jdbcType=INTEGER},
+      </if>
+      <if test="favoriteNum != null" >
+        favorite_num = #{favoriteNum,jdbcType=INTEGER},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="isHot != null" >
+        is_hot = #{isHot,jdbcType=BIT},
+      </if>
+      <if test="addTime != null" >
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="descriptionCn != null" >
+        description_cn = #{descriptionCn,jdbcType=VARCHAR},
+      </if>
+      <if test="descriptionEn != null" >
+        description_en = #{descriptionEn,jdbcType=VARCHAR},
+      </if>
+      <if test="homePage != null" >
+        home_page = #{homePage,jdbcType=VARCHAR},
+      </if>
+      <if test="postNum != null" >
+        post_num = #{postNum,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dealmoon.model.Brand" >
+    update brand
+    set title_en = #{titleEn,jdbcType=VARCHAR},
+      title_cn = #{titleCn,jdbcType=VARCHAR},
+      logo = #{logo,jdbcType=VARCHAR},
+      view_num = #{viewNum,jdbcType=INTEGER},
+      favorite_num = #{favoriteNum,jdbcType=INTEGER},
+      state = #{state,jdbcType=INTEGER},
+      is_hot = #{isHot,jdbcType=BIT},
+      add_time = #{addTime,jdbcType=TIMESTAMP},
+      description_cn = #{descriptionCn,jdbcType=VARCHAR},
+      description_en = #{descriptionEn,jdbcType=VARCHAR},
+      home_page = #{homePage,jdbcType=VARCHAR},
+      post_num = #{postNum,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

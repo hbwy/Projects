@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cms.model.Article">
+
+	<!-- 通过Id调用sql语句，parameterType表示参数类型,"User"对应SqlMapConfig.xml里实体类别名 -->
+	<insert id="save" parameterType="Article" keyProperty="id"
+		useGeneratedKeys="true">
+		insert into
+		t_article(title,source,author,content,is_header_line,is_recommend,channel_id,create_time,msg_count,click_score)
+		values(#{title},#{source},#{author},#{content},#{headerLine},#{recommend},#{channel.id},now(),#{msgCount},#{clickScore})
+	</insert>
+
+	<insert id="add_keyword" parameterType="map">
+		insert into
+		t_article_keyword(article_id,keyword) values (#{articleId},#{keyword})
+	</insert>
+
+	<delete id="delete" parameterType="int">
+		delete from t_article where
+		id=#{id}
+	</delete>
+
+	<delete id="deleteMessage" parameterType="int">
+		delete from t_message
+		where article_id=#{id}
+	</delete>
+
+	<delete id="deleteKeyword" parameterType="int">
+		delete from
+		t_article_keyword
+		where article_id=#{id}
+	</delete>
+
+	<resultMap type="Article" id="findArticle">
+		<!-- 如果字段名和属性名不一致,需要用定义对应关系 -->
+		<result column="id" property="id" />
+		<result column="is_header_line" property="headerLine" />
+		<result column="is_recommend" property="recommend" />
+		<result column="create_time" property="createTime" />
+		<result column="publish_time" property="publishTime" />
+		<result column="update_time" property="updateTime" />
+		<result column="msg_count" property="msgCount" />
+		<result column="click_score" property="clickScore" />
+		<!-- 利用collection来定义属性类型为集合的映射规则，通常需要发出第二条查询语句来查询集合 的数据，select就是定义第二条查询语句的ID，那条查询语句将接收column字段所指定的值作为 
+			参数进行查询，并将查询结果自动设置到property所指定的属性中！ -->
+		<collection property="channel" column="id"
+			select="getChannleByArticleId"></collection>
+
+	</resultMap>
+
+	<!-- resultType是查询结果返回的类型,如果返回的是list,则resultType是集合元素的类型,resultMap与前面定义的id一致 -->
+	<select id="get" parameterType="int" resultMap="findArticle">
+		select * from
+		t_article where id=#{id}
+	</select>
+
+	<select id="getKeywordByArticleId" parameterType="int"
+		resultType="string">
+		select keyword from t_article_keyword where
+		article_id=#{id}
+	</select>
+
+	<select id="getArticleIds" parameterType="int" resultType="int">
+		select distinct article_id from t_article_keyword where keyword in
+		(select keyword from t_article_keyword where article_id=#{id})
+	</select>
+
+	<select id="getChannleByArticleId" parameterType="int"
+		resultType="Channel">
+		select * from t_channel where id=(select channel_id from
+		t_article where id=#{id})
+	</select>
+
+	<update id="updateClickScore" parameterType="int">
+		update t_article set
+		click_score=click_score+1 where id=#{id}
+	</update>
+
+	<update id="updateMsgCount" parameterType="int">
+		update t_article set
+		msg_count=msg_count+1 where id=#{id}
+	</update>
+
+	<update id="publish" parameterType="int">
+		update t_article set
+		publish_time=now() where id=#{id}
+	</update>
+
+	<update id="update" parameterType="Article">
+		update t_article set
+		title=#{title},source=#{source},author=#{author},
+		content=#{content},is_header_line=#{headerLine},is_recommend=#{recommend},
+		channel_id=#{channel.id},update_time=now() where id=#{id}
+	</update>
+
+	<select id="getRowCountForBackend" parameterType="String"
+		resultType="int">
+		select count(*) from t_article where title like #{titleKey}
+	</select>
+
+	<!-- 用if判断实现动态SQL -->
+	<select id="getRowCountForSite" parameterType="map" resultType="int">
+		select count(*) from t_article where publish_time is not null and
+		title like #{title}
+		<if test="channelId !=''"> and channel_id=#{channelId}</if>
+		<if test="headerLine"> and is_header_line=1</if>
+		<if test="recommend"> and is_recommend=1</if>
+		<if test="latest"> order by publish_time desc</if>
+	</select>
+
+	<select id="queryForBackend" parameterType="map" resultMap="findArticle">
+		select * from t_article where title like #{title} limit
+		#{pm.startIndex},#{pm.pageSize}
+	</select>
+
+	<select id="queryForSite" parameterType="map" resultMap="findArticle">
+		select * from t_article where publish_time is not null and title like
+		#{title}
+		<if test="channelId !=''"> and channel_id=#{channelId}</if>
+		<if test="headerLine"> and is_header_line=1</if>
+		<if test="recommend"> and is_recommend=1</if>
+		<if test="latest"> order by publish_time desc</if>
+		limit #{pm.startIndex},#{pm.pageSize}
+	</select>
+
+	<select id="getArticleByIds" parameterType="map" resultMap="findArticle">
+		select * from t_article where id in (${articleIds}) and publish_time
+		is not null limit #{pm.startIndex},#{pm.pageSize}
+	</select>
+</mapper>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<!-- 实体类全路径名，别名 -->
+		<typeAlias type="cms.model.User" alias="User"/>
+		<typeAlias type="cms.model.Article" alias="Article"/>
+		<typeAlias type="cms.model.Channel" alias="Channel"/>
+		<typeAlias type="cms.model.Message" alias="Message"/>
+		<typeAlias type="cms.model.PageModel" alias="PageModel"/>
+		<typeAlias type="cms.model.Member" alias="Member"/>
+	</typeAliases>
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="driver" value="com.mysql.jdbc.Driver" />
+				<property name="url" value="jdbc:mysql://localhost/cmsold" />
+				<property name="username" value="root" />
+				<property name="password" value="mysql" />
+			</dataSource>
+		</environment> 
+	</environments>
+	<mappers>
+		<!-- 映射文件位置 -->
+		<mapper resource="cms/backend/dao/impl/User.xml" />
+		<mapper resource="cms/backend/dao/impl/Article.xml" />
+		<mapper resource="cms/backend/dao/impl/Channel.xml" />
+		<mapper resource="cms/backend/dao/impl/Message.xml" />
+		<mapper resource="cms/backend/dao/impl/Member.xml" />
+	</mappers>
+</configuration>

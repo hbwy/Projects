@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dealmoon.inter.PostMapper" >
+  <resultMap id="BaseResultMap" type="com.dealmoon.model.Post" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="category_id" property="categoryId" jdbcType="INTEGER" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="state" property="state" jdbcType="BIT" />
+    <result column="is_recommend" property="isRecommend" jdbcType="BIT" />
+    <result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="review_status" property="reviewStatus" jdbcType="CHAR" />
+    <result column="favorite_num" property="favoriteNum" jdbcType="INTEGER" />
+    <result column="like_num" property="likeNum" jdbcType="INTEGER" />
+    <result column="share_url" property="shareUrl" jdbcType="VARCHAR" />
+    <result column="comment_num" property="commentNum" jdbcType="INTEGER" />
+    <result column="view_num" property="viewNum" jdbcType="INTEGER" />
+    <result column="report_num" property="reportNum" jdbcType="INTEGER" />
+    <result column="ip" property="ip" jdbcType="VARCHAR" />
+    <result column="udid" property="udid" jdbcType="VARCHAR" />
+    <result column="recommend_time" property="recommendTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.dealmoon.model.PostWithBLOBs" extends="BaseResultMap" >
+    <result column="description" property="description" jdbcType="LONGVARCHAR" />
+    <result column="hash_tag" property="hashTag" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_id, category_id, store_id, state, is_recommend, add_time, update_time, review_status, 
+    favorite_num, like_num, share_url, comment_num, view_num, report_num, ip, udid, recommend_time
+  </sql>
+  <sql id="Blob_Column_List" >
+    description, hash_tag
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from post
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from post
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dealmoon.model.PostWithBLOBs" >
+    insert into post (id, user_id, category_id, 
+      store_id, state, is_recommend, 
+      add_time, update_time, review_status, 
+      favorite_num, like_num, share_url, 
+      comment_num, view_num, report_num, 
+      ip, udid, recommend_time, 
+      description, hash_tag)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{categoryId,jdbcType=INTEGER}, 
+      #{storeId,jdbcType=INTEGER}, #{state,jdbcType=BIT}, #{isRecommend,jdbcType=BIT}, 
+      #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{reviewStatus,jdbcType=CHAR}, 
+      #{favoriteNum,jdbcType=INTEGER}, #{likeNum,jdbcType=INTEGER}, #{shareUrl,jdbcType=VARCHAR}, 
+      #{commentNum,jdbcType=INTEGER}, #{viewNum,jdbcType=INTEGER}, #{reportNum,jdbcType=INTEGER}, 
+      #{ip,jdbcType=VARCHAR}, #{udid,jdbcType=VARCHAR}, #{recommendTime,jdbcType=TIMESTAMP}, 
+      #{description,jdbcType=LONGVARCHAR}, #{hashTag,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dealmoon.model.PostWithBLOBs" >
+    insert into post
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="categoryId != null" >
+        category_id,
+      </if>
+      <if test="storeId != null" >
+        store_id,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="isRecommend != null" >
+        is_recommend,
+      </if>
+      <if test="addTime != null" >
+        add_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="reviewStatus != null" >
+        review_status,
+      </if>
+      <if test="favoriteNum != null" >
+        favorite_num,
+      </if>
+      <if test="likeNum != null" >
+        like_num,
+      </if>
+      <if test="shareUrl != null" >
+        share_url,
+      </if>
+      <if test="commentNum != null" >
+        comment_num,
+      </if>
+      <if test="viewNum != null" >
+        view_num,
+      </if>
+      <if test="reportNum != null" >
+        report_num,
+      </if>
+      <if test="ip != null" >
+        ip,
+      </if>
+      <if test="udid != null" >
+        udid,
+      </if>
+      <if test="recommendTime != null" >
+        recommend_time,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="hashTag != null" >
+        hash_tag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="categoryId != null" >
+        #{categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="storeId != null" >
+        #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=BIT},
+      </if>
+      <if test="isRecommend != null" >
+        #{isRecommend,jdbcType=BIT},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reviewStatus != null" >
+        #{reviewStatus,jdbcType=CHAR},
+      </if>
+      <if test="favoriteNum != null" >
+        #{favoriteNum,jdbcType=INTEGER},
+      </if>
+      <if test="likeNum != null" >
+        #{likeNum,jdbcType=INTEGER},
+      </if>
+      <if test="shareUrl != null" >
+        #{shareUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="commentNum != null" >
+        #{commentNum,jdbcType=INTEGER},
+      </if>
+      <if test="viewNum != null" >
+        #{viewNum,jdbcType=INTEGER},
+      </if>
+      <if test="reportNum != null" >
+        #{reportNum,jdbcType=INTEGER},
+      </if>
+      <if test="ip != null" >
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="udid != null" >
+        #{udid,jdbcType=VARCHAR},
+      </if>
+      <if test="recommendTime != null" >
+        #{recommendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="hashTag != null" >
+        #{hashTag,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dealmoon.model.PostWithBLOBs" >
+    update post
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="categoryId != null" >
+        category_id = #{categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="storeId != null" >
+        store_id = #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=BIT},
+      </if>
+      <if test="isRecommend != null" >
+        is_recommend = #{isRecommend,jdbcType=BIT},
+      </if>
+      <if test="addTime != null" >
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reviewStatus != null" >
+        review_status = #{reviewStatus,jdbcType=CHAR},
+      </if>
+      <if test="favoriteNum != null" >
+        favorite_num = #{favoriteNum,jdbcType=INTEGER},
+      </if>
+      <if test="likeNum != null" >
+        like_num = #{likeNum,jdbcType=INTEGER},
+      </if>
+      <if test="shareUrl != null" >
+        share_url = #{shareUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="commentNum != null" >
+        comment_num = #{commentNum,jdbcType=INTEGER},
+      </if>
+      <if test="viewNum != null" >
+        view_num = #{viewNum,jdbcType=INTEGER},
+      </if>
+      <if test="reportNum != null" >
+        report_num = #{reportNum,jdbcType=INTEGER},
+      </if>
+      <if test="ip != null" >
+        ip = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="udid != null" >
+        udid = #{udid,jdbcType=VARCHAR},
+      </if>
+      <if test="recommendTime != null" >
+        recommend_time = #{recommendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="hashTag != null" >
+        hash_tag = #{hashTag,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.dealmoon.model.PostWithBLOBs" >
+    update post
+    set user_id = #{userId,jdbcType=INTEGER},
+      category_id = #{categoryId,jdbcType=INTEGER},
+      store_id = #{storeId,jdbcType=INTEGER},
+      state = #{state,jdbcType=BIT},
+      is_recommend = #{isRecommend,jdbcType=BIT},
+      add_time = #{addTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      review_status = #{reviewStatus,jdbcType=CHAR},
+      favorite_num = #{favoriteNum,jdbcType=INTEGER},
+      like_num = #{likeNum,jdbcType=INTEGER},
+      share_url = #{shareUrl,jdbcType=VARCHAR},
+      comment_num = #{commentNum,jdbcType=INTEGER},
+      view_num = #{viewNum,jdbcType=INTEGER},
+      report_num = #{reportNum,jdbcType=INTEGER},
+      ip = #{ip,jdbcType=VARCHAR},
+      udid = #{udid,jdbcType=VARCHAR},
+      recommend_time = #{recommendTime,jdbcType=TIMESTAMP},
+      description = #{description,jdbcType=LONGVARCHAR},
+      hash_tag = #{hashTag,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dealmoon.model.Post" >
+    update post
+    set user_id = #{userId,jdbcType=INTEGER},
+      category_id = #{categoryId,jdbcType=INTEGER},
+      store_id = #{storeId,jdbcType=INTEGER},
+      state = #{state,jdbcType=BIT},
+      is_recommend = #{isRecommend,jdbcType=BIT},
+      add_time = #{addTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      review_status = #{reviewStatus,jdbcType=CHAR},
+      favorite_num = #{favoriteNum,jdbcType=INTEGER},
+      like_num = #{likeNum,jdbcType=INTEGER},
+      share_url = #{shareUrl,jdbcType=VARCHAR},
+      comment_num = #{commentNum,jdbcType=INTEGER},
+      view_num = #{viewNum,jdbcType=INTEGER},
+      report_num = #{reportNum,jdbcType=INTEGER},
+      ip = #{ip,jdbcType=VARCHAR},
+      udid = #{udid,jdbcType=VARCHAR},
+      recommend_time = #{recommendTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="AntTestDemo" default="junit and report" basedir=".">
+	<!--编译好的文件所放的目录-->
+	<property name="output" value="bin" />
+
+	<!--源文件所在目录-->
+	<property name="src" value="src" />
+
+	<!--所有测试源文件所在目录-->
+	<property name="test" value="test" />
+
+	<!--测试报告所在目录-->
+	<property name="report" value="report" />
+
+	<!--定义相关jar文件所在路径-->
+	<path id="jar.path">
+		<fileset dir="${basedir}/lib">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+
+	<!--创建测试报告目录-->
+	<target name="test init">
+		<delete dir="${output}" />
+		<delete dir="${report}" />
+		<mkdir dir="${output}" />
+		<mkdir dir="${report}" />
+	</target>
+
+	<!--编译源文件-->
+	<target name="compile" depends="test init">
+		<javac srcdir="${src}" destdir="${output}" includeantruntime="on">
+			<classpath refid="jar.path">
+			</classpath>
+		</javac>
+		<echo>compilation complete!</echo>
+	</target>
+
+	<!--编译测试文件-->
+	<target name="test compile" depends="compile">
+		<javac srcdir="${test}" destdir="${output}" includeantruntime="on">
+			<classpath refid="jar.path">
+			</classpath>
+		</javac>
+		<echo>test compilation complete!</echo>
+	</target>
+
+	<target name="copy" depends="compile,test compile">
+		<copy todir="${output}">
+			<fileset dir="${test}" includes="*.xml">
+			</fileset>
+		</copy>
+	</target>
+
+	<!--执行所有的测试文件，并生成测试报告-->
+	<target name="junit and report" depends="copy">
+		<junit printsummary="on" fork="true" showoutput="true">
+			<classpath>
+				<pathelement path="${output}" />
+				<fileset dir="${basedir}/lib">
+					<include name="**/*.jar" />
+				</fileset>
+			</classpath>
+			<formatter type="xml" />
+			<batchtest todir="${report}">
+				<fileset dir="${output}">
+					<include name="**/*.*" />
+				</fileset>
+			</batchtest>
+		</junit>
+		<junitreport todir="${report}">
+			<fileset dir="${report}">
+				<include name="*.xml" />
+			</fileset>
+			<report format="frames" todir="${report}" />
+		</junitreport>
+	</target>
+
+</project>

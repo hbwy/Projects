@@ -1,0 +1,9 @@
+附件
+创建文章和附件关联的表t_attachment
+create table t_attachment(
+	id int primary key auto_increment,
+	name varchar(100),
+	articleId int,
+	contentType varchar(40),
+	uploadTime datetime
+)

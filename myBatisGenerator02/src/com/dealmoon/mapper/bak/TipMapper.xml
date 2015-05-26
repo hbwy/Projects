@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dealmoon.inter.TipMapper" >
+  <resultMap id="BaseResultMap" type="com.dealmoon.model.Tip" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="image_id" property="imageId" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="currency_type" property="currencyType" jdbcType="VARCHAR" />
+    <result column="brand_id" property="brandId" jdbcType="INTEGER" />
+    <result column="pos_x" property="posX" jdbcType="VARCHAR" />
+    <result column="pos_y" property="posY" jdbcType="VARCHAR" />
+    <result column="arrow_direction" property="arrowDirection" jdbcType="VARCHAR" />
+    <result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+    <result column="post_id" property="postId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_id, image_id, title, currency_type, brand_id, pos_x, pos_y, arrow_direction, 
+    add_time, post_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tip
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tip
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dealmoon.model.Tip" >
+    insert into tip (id, user_id, image_id, 
+      title, currency_type, brand_id, 
+      pos_x, pos_y, arrow_direction, 
+      add_time, post_id)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{imageId,jdbcType=INTEGER}, 
+      #{title,jdbcType=VARCHAR}, #{currencyType,jdbcType=VARCHAR}, #{brandId,jdbcType=INTEGER}, 
+      #{posX,jdbcType=VARCHAR}, #{posY,jdbcType=VARCHAR}, #{arrowDirection,jdbcType=VARCHAR}, 
+      #{addTime,jdbcType=TIMESTAMP}, #{postId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dealmoon.model.Tip" >
+    insert into tip
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="imageId != null" >
+        image_id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="currencyType != null" >
+        currency_type,
+      </if>
+      <if test="brandId != null" >
+        brand_id,
+      </if>
+      <if test="posX != null" >
+        pos_x,
+      </if>
+      <if test="posY != null" >
+        pos_y,
+      </if>
+      <if test="arrowDirection != null" >
+        arrow_direction,
+      </if>
+      <if test="addTime != null" >
+        add_time,
+      </if>
+      <if test="postId != null" >
+        post_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="imageId != null" >
+        #{imageId,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="currencyType != null" >
+        #{currencyType,jdbcType=VARCHAR},
+      </if>
+      <if test="brandId != null" >
+        #{brandId,jdbcType=INTEGER},
+      </if>
+      <if test="posX != null" >
+        #{posX,jdbcType=VARCHAR},
+      </if>
+      <if test="posY != null" >
+        #{posY,jdbcType=VARCHAR},
+      </if>
+      <if test="arrowDirection != null" >
+        #{arrowDirection,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="postId != null" >
+        #{postId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dealmoon.model.Tip" >
+    update tip
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="imageId != null" >
+        image_id = #{imageId,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="currencyType != null" >
+        currency_type = #{currencyType,jdbcType=VARCHAR},
+      </if>
+      <if test="brandId != null" >
+        brand_id = #{brandId,jdbcType=INTEGER},
+      </if>
+      <if test="posX != null" >
+        pos_x = #{posX,jdbcType=VARCHAR},
+      </if>
+      <if test="posY != null" >
+        pos_y = #{posY,jdbcType=VARCHAR},
+      </if>
+      <if test="arrowDirection != null" >
+        arrow_direction = #{arrowDirection,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="postId != null" >
+        post_id = #{postId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dealmoon.model.Tip" >
+    update tip
+    set user_id = #{userId,jdbcType=INTEGER},
+      image_id = #{imageId,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      currency_type = #{currencyType,jdbcType=VARCHAR},
+      brand_id = #{brandId,jdbcType=INTEGER},
+      pos_x = #{posX,jdbcType=VARCHAR},
+      pos_y = #{posY,jdbcType=VARCHAR},
+      arrow_direction = #{arrowDirection,jdbcType=VARCHAR},
+      add_time = #{addTime,jdbcType=TIMESTAMP},
+      post_id = #{postId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
